@@ -29,14 +29,43 @@ public class AdjacentMatrix {
      */
     private int size;
 
-    private boolean isVisited[] = null;
+    public boolean isVisited[] = null;
+
+
+    /**
+     * 顶点集合
+     */
+    public int[] ends;
+
+    public int getEnd(int i) {
+        while (ends[i] != 0) {
+            i = ends[i];
+        }
+        return i;
+    }
+
+    public int[][] getEdges() {
+        return this.edges;
+    }
+
+    public String[] getData() {
+        return this.data;
+    }
+
 
     public AdjacentMatrix(String[] data) {
         this.data = data;
         this.edges = new int[data.length][data.length];
         this.isVisited = new boolean[data.length];
+        this.ends = new int[data.length];
     }
 
+    public AdjacentMatrix(String[] data, int[][] edges) {
+        this.data = data;
+        this.edges = edges;
+        this.isVisited = new boolean[data.length];
+        this.ends = new int[data.length];
+    }
 
     public void insertVertex() {
 
@@ -67,6 +96,20 @@ public class AdjacentMatrix {
         size++;
     }
 
+    /**
+     * 依据顶点获取index
+     *
+     * @param vertex 顶点
+     * @return index
+     */
+    public int getDataIndex(String vertex) {
+        for (int i = 0; i < data.length; i++) {
+            if (data[i].equals(vertex)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     /**
      * 展示图
@@ -93,7 +136,7 @@ public class AdjacentMatrix {
     /**
      * @param i 当前处理的数据角标
      */
-    private void dfs(int i) {
+    public void dfs(int i) {
         if (!isVisited[i]) {
             // 1. 输出当前节点
             System.out.print(getValueByIndex(i) + "--->");
@@ -121,9 +164,10 @@ public class AdjacentMatrix {
      * @return 下一个节点
      */
     private int getNextNode(int i) {
-        for (int temp : edges[i]) {
-            if (temp != 0) {
-                return temp;
+        int[] data = edges[i];
+        for (int j = 0; j < data.length; j++) {
+            if (data[j] != 0) {
+                return j;
             }
         }
         return -1;
@@ -190,4 +234,5 @@ public class AdjacentMatrix {
             }
         }
     }
+
 }
