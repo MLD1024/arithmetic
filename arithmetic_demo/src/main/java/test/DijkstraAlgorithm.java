@@ -21,7 +21,7 @@ public class DijkstraAlgorithm {
 		//测试, 看看图的邻接矩阵是否ok
 		graph.showGraph();
 		//测试迪杰斯特拉算法
-		graph.dsj(2);//C
+		graph.dsj(6);//C
 		graph.showDijkstra();
 
 

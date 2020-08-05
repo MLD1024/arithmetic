@@ -13,19 +13,25 @@ import java.util.List;
  * @since 1.0.0
  */
 public class HorseChessboard {
-    // 列数
+    /**
+     * 列数
+     */
     private int width;
-    // 行数
+    /**
+     * 行数
+     */
     private int height;
-
-    // 访问记录
-    private boolean visited[];
-
-    // 棋盘
+    /**
+     * 访问记录
+     */
+    private boolean[] visited;
+    /**
+     * 棋盘
+     */
     private int[][] chessboard;
 
     /**
-     * 总的步数
+     * 是否完成
      */
     private boolean finished = false;
 
@@ -39,6 +45,12 @@ public class HorseChessboard {
     }
 
 
+    /**
+     * 初始化属性
+     *
+     * @param width  棋盘 宽度
+     * @param height 棋盘 高度
+     */
     public HorseChessboard(int width, int height) {
         this.width = width;
         this.height = height;
@@ -48,6 +60,12 @@ public class HorseChessboard {
     }
 
 
+    /**
+     * 开始游戏
+     *
+     * @param p    起始点
+     * @param step 第几步
+     */
     public void start(Point p, int step) {
         // 标记该点第几步
         this.chessboard[p.x][p.y] = step;
@@ -74,6 +92,12 @@ public class HorseChessboard {
     }
 
 
+    /**
+     * 寻找下步可能性
+     *
+     * @param p 当前点
+     * @return list
+     */
     private List<Point> findNextStep(Point p) {
         List<Point> ps = new ArrayList<>();
         Point nextPoint = new Point();
@@ -132,9 +156,7 @@ public class HorseChessboard {
      * @return boolean
      */
     private boolean in(Point p) {
-
         return this.visited[p.y * width + p.x];
-
     }
 
     /**
@@ -146,13 +168,14 @@ public class HorseChessboard {
         ps.sort((item1, item2) -> {
             int count1 = findNextStep(item1).size();
             int count2 = findNextStep(item2).size();
-            if (count1 < count2) {
-                return -1;
-            } else if (count1 == count2) {
-                return 0;
-            } else {
-                return 1;
-            }
+            return Integer.compare(count1, count2);
+//            if (count1 < count2) {
+//                return -1;
+//            } else if (count1 == count2) {
+//                return 0;
+//            } else {
+//                return 1;
+//            }
         });
     }
 
